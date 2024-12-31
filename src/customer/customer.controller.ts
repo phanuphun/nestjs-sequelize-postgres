@@ -25,7 +25,7 @@ export class CustomerController {
 
   @Get()
   findAll() {
-    return this.customerService.findAll();
+    return this.customerService.getCustomersData();
   }
 
   @Get(':id')
