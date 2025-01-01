@@ -19,30 +19,51 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customerService.create(createCustomerDto);
+  async create(@Body() createCustomerDto: CreateCustomerDto) {
+    return {
+      msg: 'Create Customer Successfully',
+      dataCreated: await this.customerService.create(createCustomerDto),
+    };
   }
 
   @Get()
-  findAll() {
-    return this.customerService.getCustomersData();
+  async findAll() {
+    return {
+      msg: 'Get Customers data successfully!',
+      custumerData: await this.customerService.getCustomersData(),
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.customerService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return {
+      msg: `Get Customer by ${id} successfully!`,
+      customer: await this.customerService.findOne(+id),
+    };
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    return this.customerService.update(+id, updateCustomerDto);
+    const affectedCountUpdate = await this.customerService.update(
+      +id,
+      updateCustomerDto,
+    );
+    return {
+      msg:
+        affectedCountUpdate[0] === 1
+          ? 'Update Customer Successfully!'
+          : `Update Customer Faild, Customer id ${id} not found.`,
+    };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return {
+      msg: 'Customer delete successfully!',
+      deletedRows: await this.customerService.remove(+id),
+    };
   }
 }
