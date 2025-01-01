@@ -70,4 +70,11 @@ export class AuthService {
       throw new HttpException('Something wrong', 500);
     }
   }
+
+  // get use profile
+  async getUserProfile(id: number) {
+    return await this.userModel.findByPk(id, {
+      attributes: ['id', 'fullName', 'email'],
+    });
+  }
 }
