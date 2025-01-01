@@ -32,6 +32,20 @@
 $ npm install
 ```
 
+```bash
+NODE_ENV= 
+PORT= 
+
+API_VERSION= 
+
+DB_DIALECT= 
+DB_HOST= 
+DB_USERNAME= 
+DB_PASSWORD= 
+DB_PORT= 
+DB_NAME= 
+```
+
 ## Compile and run the project
 
 ```bash

@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize';
 import { Customer } from './customer/entities/customer.entity';
+import { AuthModule } from './auth/auth.module';
+import { User } from './auth/entities/auth.entity';
 
 @Module({
   // import controller modules
@@ -25,12 +27,13 @@ import { Customer } from './customer/entities/customer.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Customer],
+      models: [Customer, User],
       autoLoadModels: true, // auto load model registered in forFeutures()
       // sync: {}, // sync model to db server **avoid to use in production , this option will create only one if db dont have
       // sync: { force: true }, // this option will force to db dont care if aready have it , **data will delete all in model (that means re-creation table)
       sync: { alter: true }, // this option will check state on table and change to match model
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
